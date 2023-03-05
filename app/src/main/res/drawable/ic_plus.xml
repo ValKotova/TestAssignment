@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="14dp"
+    android:height="14dp"
+    android:viewportWidth="25"
+    android:viewportHeight="24"
+    >
+
+    <path
+        android:fillColor="@color/colorOnCardButton"
+        android:pathData="M19.5 13H13.5V19H11.5V13H5.5V11H11.5V5H13.5V11H19.5V13Z" />
+</vector>
