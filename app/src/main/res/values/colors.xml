@@ -2,7 +2,7 @@
 <resources>
     <color name="colorSecondary">#4E55D7</color>
     <color name="colorOnSecondary">#EAEAEA</color>
-    <color name="colorBackground">#CDCBC7</color>
+    <color name="colorBackground">#FAF9FF</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorPrimary">#EEEFF4</color>
     <color name="colorOnPrimary">#737297</color>
@@ -21,4 +21,11 @@
     <color name="colorCardButton">#D9E5E9EF</color>
     <color name="colorOnCardButton">#545589</color>
     <color name="colorSale">#F93A3A</color>
+    <color name="colorHeader">#4E55D7</color>
+    <color name="colorBackgroundSearch">#F5F6F6</color>
+    <color name="colorSearchHint">#5B5B5B</color>
+    <color name="textColorMainHeaders">#040402</color>
+    <color name="iconColorBottomNavigation">#909090</color>
+    <color name="iconColorBottomNavigationActive">#737297</color>
+    <color name="colorError">#F93A3A</color>
 </resources>
