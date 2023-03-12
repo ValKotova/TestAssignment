@@ -1,32 +1,41 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:constantSize="true">
     <item
         android:state_checked="true">
-        <vector xmlns:android="http://schemas.android.com/apk/res/android"
-            android:width="40dp"
-            android:height="40dp"
-            android:viewportWidth="40"
-            android:viewportHeight="40"
-            android:gravity="center"
-            >
-            <path
-                android:pathData="M20,20m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
-                android:fillColor="#EEEFF4"/>
-        </vector>
+            <layer-list>
+                <item android:top="10dp" android:bottom="10dp" android:start="10dp" android:end="10dp">
+                    <vector
+                        android:width="40dp"
+                        android:height="40dp"
+                        android:viewportWidth="40"
+                        android:viewportHeight="40"
+                        android:gravity="center"
+                        >
+                        <path
+                            android:pathData="M20,20m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
+                            android:fillColor="#EEEFF4"/>
+                    </vector>
+                </item>
+            </layer-list>
     </item>
 
     <item
         android:state_checked="false">
-        <vector xmlns:android="http://schemas.android.com/apk/res/android"
-            android:width="40dp"
-            android:height="40dp"
-            android:viewportWidth="40"
-            android:viewportHeight="40"
-            android:gravity="center"
-            >
-            <path
-                android:pathData="M20,20m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
-                android:fillColor="@color/colorWhite"/>
-        </vector>
+        <layer-list>
+            <item android:top="10dp" android:bottom="10dp" android:start="10dp" android:end="10dp">
+            <vector
+                android:width="40dp"
+                android:height="40dp"
+                android:viewportWidth="40"
+                android:viewportHeight="40"
+                android:gravity="center"
+                >
+                <path
+                    android:pathData="M20,20m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
+                    android:fillColor="@color/colorWhite"/>
+            </vector>
+            </item>
+        </layer-list>
     </item>
 </selector>
 

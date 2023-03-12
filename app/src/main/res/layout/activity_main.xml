@@ -23,6 +23,7 @@
         app:itemPaddingTop="12dp"
         app:itemActiveIndicatorStyle="@style/MenuActive"
         app:menu="@menu/bottom_nav_menu"
+        app:itemIconSize="15dp"
         app:itemIconTint="@color/icon_tint_navigation"/>
 
     <fragment

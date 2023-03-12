@@ -1,16 +1,16 @@
 package com.valkotova.testassignment.model.repository
 
-import com.valkotova.testassignment.model.FlashSaleListData
-import com.valkotova.testassignment.model.LatestListData
-import com.valkotova.testassignment.model.ListOfWordsData
-import com.valkotova.testassignment.model.ProductData
+import com.valkotova.testassignment.model.FlashSaleList
+import com.valkotova.testassignment.model.LatestList
+import com.valkotova.testassignment.model.ListOfWords
+import com.valkotova.testassignment.model.Product
 
 interface ProductsRepo {
-    suspend fun getProductData() : ProductData
+    suspend fun getProductData() : Product
 
-    suspend fun getLatest() : LatestListData
+    suspend fun getLatest() : LatestList
 
-    suspend fun getFlashSale() : FlashSaleListData
+    suspend fun getFlashSale() : FlashSaleList
 
-    suspend fun getListOfWords() : ListOfWordsData
+    suspend fun getListOfWords() : ListOfWords
 }

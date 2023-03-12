@@ -1,5 +1,5 @@
 package com.valkotova.testassignment.model
 
-data class ListOfWordsData(
+data class ListOfWords(
     val words : List<String>
 )

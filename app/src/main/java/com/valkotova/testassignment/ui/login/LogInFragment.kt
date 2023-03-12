@@ -1,6 +1,7 @@
 package com.valkotova.testassignment.ui.login
 
 import android.os.Bundle
+import android.text.Layout.Directions
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.valkotova.testassignment.R
 import com.valkotova.testassignment.appComponent
@@ -46,7 +49,7 @@ class LogInFragment: Fragment() {
                 LogInStates.Empty -> {
                 }
                 LogInStates.NavigateToHome -> {
-                    findNavController().navigate(R.id.navigation_home)
+                    findNavController().navigate(LogInFragmentDirections.actionLoginToHome())
                 }
             }
             viewModel.emptyState()

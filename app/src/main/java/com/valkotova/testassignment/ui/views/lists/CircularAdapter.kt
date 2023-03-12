@@ -4,8 +4,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
-abstract class CircularAdapter<T : Item, VH : BaseViewHolder<T>>:
+abstract class CircularAdapter<T : Item, VH : BaseViewHolder<T>>():
     ListAdapter<T, BaseViewHolder<T>>(object : DiffCallback<T>(){}) {
+
+    var onClickItemListener : ((Int, T) -> Unit)? = null
+    fun setItemOnClickListener(listener : (Int, T) -> Unit){
+        onClickItemListener = listener
+    }
 
     override fun getItem(position: Int): T {
         return currentList[position % currentList.size]
@@ -29,6 +34,11 @@ abstract class CircularAdapter<T : Item, VH : BaseViewHolder<T>>:
         else{
             (payload[0] as? T)?.let{
                 holder.update(it)
+            }
+        }
+        onClickItemListener?.let{ listener ->
+            holder.itemView.rootView.setOnClickListener {
+                listener.invoke(position%currentList.size, currentList[position%currentList.size])
             }
         }
     }

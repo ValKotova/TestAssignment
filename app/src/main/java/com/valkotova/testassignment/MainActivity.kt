@@ -31,18 +31,17 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home,
-                R.id.navigation_favorites,
-                R.id.navigation_cart,
-                R.id.navigation_comment,
-                R.id.navigation_profile
-            )
-        )
-        navController?.let { navController ->
-            setupWithNavController(navView as NavigationBarView, navController)
-        }
+//        val appBarConfiguration = AppBarConfiguration(
+//            setOf(
+//                R.id.navigation_home,
+//                R.id.navigation_favorites,
+//                R.id.navigation_cart,
+//                R.id.navigation_comment,
+//                R.id.navigation_profile
+//            )
+//        )
+
+        setupWithNavController(navView as NavigationBarView, navController)
         //setupActionBarWithNavController(navController, appBarConfiguration)
         //navView.setupWithNavController(navController)
         navView.setOnApplyWindowInsetsListener { v, insets ->
@@ -54,13 +53,13 @@ class MainActivity : AppCompatActivity() {
                     R.id.navigation_favorites,
                     R.id.navigation_cart,
                     R.id.navigation_comment,
-                    R.id.navigation_profile
-            ))
+                    R.id.navigation_profile,
+                    R.id.navigation_product
+            )) {
                 navView.visibility = View.VISIBLE
+            }
             else
                 navView.visibility = View.GONE
         }
-//        navView.itemIconTintList =
-//            ContextCompat.getColorStateList(this.applicationContext,R.color.icon_tint_navigation)
     }
 }

@@ -24,13 +24,13 @@ class UsersRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUser(name: String) : UserData{
+    override suspend fun getUser(name: String) {
         with(Dispatchers.IO) {
             val result = usersDao.getUser(name)
             if(result.isEmpty())
                 throw UsersRepo.UserNotFound()
             else
-                return result[0]
+                return
         }
     }
 

@@ -32,3 +32,18 @@ fun ImageView.loadGlide(uri : String) {
             .into(this)
     }
 }
+
+fun ImageView.loadGlideCircled(uri : String) {
+    Glide.with(this.context).load(uri).let {
+        val circularProgressDrawable = CircularProgressDrawable(context)
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
+        it.thumbnail()
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .placeholder(circularProgressDrawable)
+            .error(R.mipmap.ic_launcher_round)
+            .circleCrop()
+            .into(this)
+    }
+}

@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:height="45dp" android:width="42dp">
+    <ripple
+        android:color="?attr/colorControlHighlight">
+        <item>
+        <shape
+            android:shape="rectangle">
+          <corners android:topLeftRadius="14dp" android:topRightRadius="14dp"/>
+          <solid android:color="@color/colorPanel"/>
+        </shape>
+        </item>
+    </ripple>
+  </item>
+  <item android:drawable="@drawable/ic_favorite" android:height="16dp" android:width="16dp" android:gravity="center"></item>
+</layer-list>

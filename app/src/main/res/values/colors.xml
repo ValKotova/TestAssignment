@@ -28,4 +28,10 @@
     <color name="iconColorBottomNavigation">#909090</color>
     <color name="iconColorBottomNavigationActive">#737297</color>
     <color name="colorError">#F93A3A</color>
+    <color name="colorPanel">#E5E9EF</color>
+    <color name="colorTextProductGeneral">#161826</color>
+    <color name="colorProductColorWrapper">#737373</color>
+    <color name="colorProductTotal">#99A0FF</color>
+    <color name="colorSelected">#ADADAD</color>
+
 </resources>

@@ -106,6 +106,47 @@
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
+    <style name="ProductText" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">@color/colorTextProductGeneral</item>
+    </style>
+
+
+    <style name="ProductSmallText" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">9sp</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">@color/textColorGray</item>
+    </style>
+
+    <style name="ProductSmallTitle" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">@color/colorProductColorWrapper</item>
+    </style>
+
+    <style name="ProductTotal" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">@color/colorProductTotal</item>
+    </style>
+
+    <style name="ProductAdd" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
     <style name="SaleText" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">10sp</item>

@@ -2,7 +2,7 @@ package com.valkotova.testassignment.model
 
 import com.google.gson.annotations.SerializedName
 
-data class FlashSaleData(
+data class FlashSale(
     val category : String,
     val name : String,
     val price : Float,

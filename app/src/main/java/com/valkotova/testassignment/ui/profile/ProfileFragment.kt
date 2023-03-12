@@ -3,27 +3,20 @@ package com.valkotova.testassignment.ui.profile
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.FileProvider
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.valkotova.testassignment.R
 import com.valkotova.testassignment.appComponent
 import com.valkotova.testassignment.databinding.FragmentProfileBinding
-import com.valkotova.testassignment.databinding.FragmentSignInBinding
-import com.valkotova.testassignment.di.loadGlide
+import com.valkotova.testassignment.di.loadGlideCircled
 import com.valkotova.testassignment.di.viewModel.ViewModelFactory
 import com.valkotova.testassignment.ui.ext.showError
-import com.valkotova.testassignment.ui.login.LogInStates
-import com.valkotova.testassignment.ui.signIn.SignInViewModel
-import java.io.File
 import javax.inject.Inject
 
 class ProfileFragment : Fragment() {
@@ -59,6 +52,13 @@ class ProfileFragment : Fragment() {
     ): View {
         requireContext().appComponent.inject(this)
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val backPressedCallback = object :
+            OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.backClicked()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
 
         viewModel.state.observe(viewLifecycleOwner){ state ->
             when(state){
@@ -68,7 +68,7 @@ class ProfileFragment : Fragment() {
                 ProfileStates.Empty -> {
                 }
                 ProfileStates.NavigateToSignIn -> {
-                    findNavController().navigate(R.id.navigation_sign_in)
+                    findNavController().navigate(ProfileFragmentDirections.actionProfileToSignin())
                 }
                 ProfileStates.ChangeAvatar -> {
                     if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
@@ -76,13 +76,18 @@ class ProfileFragment : Fragment() {
                     else
                         requestPermission.launch(arrayOf(Manifest.permission.READ_MEDIA_IMAGES))
                 }
+                ProfileStates.NavigateBack -> {
+                    findNavController().navigate(ProfileFragmentDirections.actionProfileToHome())
+                    backPressedCallback.isEnabled = false
+                    backPressedCallback.remove()
+                }
             }
             viewModel.emptyState()
         }
 
         viewModel.imageUrl.observe(viewLifecycleOwner){ imageUrl ->
             imageUrl?.let{
-                binding.ivAvatar.loadGlide(it)
+                binding.ivAvatar.loadGlideCircled(it)
             } ?: run {
                 binding.ivAvatar.setImageResource(R.drawable.photo_sample)
             }
@@ -94,6 +99,10 @@ class ProfileFragment : Fragment() {
 
         binding.avatarContainer.setOnClickListener {
             viewModel.onChangeAvatar()
+        }
+
+        binding.btnBack.setOnClickListener {
+            viewModel.backClicked()
         }
         return binding.root
     }

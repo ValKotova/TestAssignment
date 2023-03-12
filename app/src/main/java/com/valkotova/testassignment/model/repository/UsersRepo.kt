@@ -5,7 +5,7 @@ import com.valkotova.testassignment.database.UserData
 interface UsersRepo {
     suspend fun addUser(user: UserData)
 
-    suspend fun getUser(name: String) : UserData
+    suspend fun getUser(name: String)
 
     class UserIsAlreadyExists: Throwable()
     class UserNotFound: Throwable()

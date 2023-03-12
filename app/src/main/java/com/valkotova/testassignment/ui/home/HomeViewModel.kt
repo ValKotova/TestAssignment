@@ -2,12 +2,16 @@ package com.valkotova.testassignment.ui.home
 
 import androidx.lifecycle.*
 import com.valkotova.testassignment.R
-import com.valkotova.testassignment.model.FlashSaleListData
-import com.valkotova.testassignment.model.LatestListData
+import com.valkotova.testassignment.model.FlashSale
+import com.valkotova.testassignment.model.FlashSaleList
+import com.valkotova.testassignment.model.LatestList
 import com.valkotova.testassignment.model.repository.ProductsRepo
+import com.valkotova.testassignment.ui.ProductFragment.ProductStates
+import com.valkotova.testassignment.ui.ext.UIError
 import com.valkotova.testassignment.ui.home.items.CategoryItem
 import com.valkotova.testassignment.ui.home.items.FlashSaleItem
 import com.valkotova.testassignment.ui.home.items.LatestItem
+import com.valkotova.testassignment.ui.login.LogInStates
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
@@ -15,13 +19,18 @@ class HomeViewModel @Inject constructor(
     private val productsRepo : ProductsRepo
 ) : ViewModel(
 ) {
-    private val _latest : MutableLiveData<List<LatestItem>> = MutableLiveData(listOf())
-    val latest : LiveData<List<LatestItem>>
-        get() = _latest
+    private val _state : MutableLiveData<HomeStates> = MutableLiveData(HomeStates.Empty)
+    val state : LiveData<HomeStates>
+        get() = _state
 
-    private val _flashSale : MutableLiveData<List<FlashSaleItem>> = MutableLiveData(listOf())
-    val flashSale : LiveData<List<FlashSaleItem>>
-        get() = _flashSale
+    data class Lists(
+        val latest : List<LatestItem>,
+        val flashSale : List<FlashSaleItem>
+    )
+
+    private val _lists : MutableLiveData<Lists?> = MutableLiveData(null)
+    val lists : LiveData<Lists?>
+        get() = _lists
 
     private val _suggestions : MutableLiveData<List<String>> = MutableLiveData(listOf())
     val suggestions : LiveData<List<String>>
@@ -29,8 +38,36 @@ class HomeViewModel @Inject constructor(
     private var words : List<String> = listOf()
     private var _search : String = ""
 
+    init{
+        val getLatest = viewModelScope.async {
+            productsRepo.getLatest()
+        }
+        val getFlashSale = viewModelScope.async {
+            productsRepo.getFlashSale()
+        }
+        viewModelScope.launch {
+            try {
+                viewModelScope.async(Dispatchers.IO) {
+                    words = productsRepo.getListOfWords().words
+                }.start()
+                getLatest.start()
+                getFlashSale.start()
+                val latestData : LatestList = getLatest.await()
+                val flashSaleData : FlashSaleList = getFlashSale.await()
+                _lists.postValue(Lists(
+                    latest = latestData.latest.map { LatestItem(it) },
+                    flashSale = flashSaleData.flashSale.map { FlashSaleItem(it) }
+                ))
+            } catch(t: Throwable){
+                _state.postValue(
+                    HomeStates.ShowError(UIError(
+                    errorString = t.message?:""
+                )))
+            }
+        }
+    }
 
-    fun setSearchText(text: String, manually : Boolean = false){
+    fun setSearchText(text: String, manually : Boolean = false) = viewModelScope.launch {
         if(text != _search){
             _search = text
             if(_search == "" || manually)
@@ -40,33 +77,8 @@ class HomeViewModel @Inject constructor(
         }
 
     }
-    fun notShowSuggestion(){
+    fun notShowSuggestion() = viewModelScope.launch {
         _suggestions.postValue(listOf())
-    }
-    init{
-        var latestData : LatestListData? = null
-        var flashSaleData : FlashSaleListData? = null
-        val getLatest = viewModelScope.async {
-            latestData = productsRepo.getLatest()
-        }
-        val getFlashSale = viewModelScope.async {
-            flashSaleData = productsRepo.getFlashSale()
-        }
-        viewModelScope.launch {
-            try {
-                viewModelScope.async(Dispatchers.IO) {
-                    words = productsRepo.getListOfWords().words
-                }.start()
-                getLatest.start()
-                getFlashSale.start()
-                val isLatestComplete = getLatest.await()
-                val isGetFlashSaleComplete = getFlashSale.await()
-                _latest.postValue(latestData?.latest?.map { LatestItem(it) })
-                _flashSale.postValue(flashSaleData?.flashSale?.map { FlashSaleItem(it) })
-            } catch(t: Throwable){
-                t.printStackTrace()
-            }
-        }
     }
 
     fun initCategory() : List<CategoryItem> = listOf(
@@ -77,4 +89,24 @@ class HomeViewModel @Inject constructor(
         CategoryItem("Furniture", R.drawable.ic_furniture),
         CategoryItem("Kids", R.drawable.ic_kids),
     )
+
+    fun onFlashSaleClick(item : FlashSaleItem) = viewModelScope.launch {
+        _state.postValue(HomeStates.NavigateToProduct(item.value))
+    }
+
+    fun emptyState() = viewModelScope.launch {
+        _state.postValue(HomeStates.Empty)
+    }
+
+    fun backOnClick() = viewModelScope.launch {
+        _state.postValue(HomeStates.NavigateBack)
+    }
+
+}
+
+sealed class HomeStates {
+    object Empty : HomeStates()
+    object NavigateBack : HomeStates()
+    data class NavigateToProduct(val item : FlashSale) : HomeStates()
+    data class ShowError(val error: UIError) : HomeStates()
 }

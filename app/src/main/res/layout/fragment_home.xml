@@ -79,14 +79,29 @@
         android:layout_marginEnd="15dp"
         />
 
+    <ProgressBar
+        android:id="@+id/progress_lists"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:indeterminate="true"
+        android:padding="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_categories"
+        />
+
     <ScrollView
+        android:id="@+id/lists_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginEnd="9dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_categories">
+        app:layout_constraintTop_toBottomOf="@id/rv_categories"
+        android:visibility="gone"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

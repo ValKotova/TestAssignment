@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.valkotova.testassignment.R
@@ -62,10 +63,10 @@ class SignInFragment: Fragment() {
                 SignInState.Empty -> {
                 }
                 SignInState.NavigateToHome -> {
-                    findNavController().navigate(R.id.navigation_home)
+                    findNavController().navigate(SignInFragmentDirections.actionSigninToHome())
                 }
                 SignInState.NavigateToLogIn -> {
-                    findNavController().navigate(R.id.navigation_log_in)
+                    findNavController().navigate(SignInFragmentDirections.actionSigninToLogin())
                 }
             }
             viewModel.emptyState()
@@ -83,10 +84,10 @@ class SignInFragment: Fragment() {
             }
         })
 
-        binding.etFirstName.doOnTextChanged { text, start, before, count ->
+        binding.etFirstName.doOnTextChanged { text, _, _, _ ->
             viewModel.setFirstName(text.toString())
         }
-        binding.etLastName.doOnTextChanged { text, start, before, count ->
+        binding.etLastName.doOnTextChanged { text, _, _, _ ->
             viewModel.setLastName(text.toString())
         }
         binding.btnSignIn.setOnClickListener {

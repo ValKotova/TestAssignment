@@ -3,9 +3,11 @@ package com.valkotova.testassignment.ui.profile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.valkotova.testassignment.model.repository.ProductsRepo
 import com.valkotova.testassignment.ui.ext.UIError
 import com.valkotova.testassignment.ui.login.LogInStates
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
@@ -18,25 +20,30 @@ class ProfileViewModel @Inject constructor(
     val imageUrl : LiveData<String?>
     get() = _imageUrl
 
-    fun emptyState(){
+    fun emptyState() = viewModelScope.launch{
         _state.postValue(ProfileStates.Empty)
     }
 
-    fun logOut(){
+    fun logOut() = viewModelScope.launch{
         _state.postValue(ProfileStates.NavigateToSignIn)
     }
 
-    fun setImageUrl(url : String){
+    fun setImageUrl(url : String) = viewModelScope.launch{
         _imageUrl.postValue(url)
     }
 
-    fun onChangeAvatar(){
+    fun onChangeAvatar() = viewModelScope.launch{
         _state.postValue(ProfileStates.ChangeAvatar)
+    }
+
+    fun backClicked() = viewModelScope.launch{
+        _state.postValue(ProfileStates.NavigateBack)
     }
 }
 sealed class ProfileStates {
     object Empty : ProfileStates()
     object NavigateToSignIn : ProfileStates()
+    object NavigateBack : ProfileStates()
     data class ShowError(val error: UIError) : ProfileStates()
     object ChangeAvatar : ProfileStates()
 }
