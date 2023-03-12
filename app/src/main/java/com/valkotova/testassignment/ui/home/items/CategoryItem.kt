@@ -6,15 +6,15 @@ import com.valkotova.presenter.views.lists.Item
 class CategoryItem(
     val name : String,
     @DrawableRes val drawable : Int
-) : com.valkotova.presenter.views.lists.Item {
+) : Item {
 
-    override fun areItemsTheSame(other: com.valkotova.presenter.views.lists.Item): Boolean {
+    override fun areItemsTheSame(other: Item): Boolean {
         return (other as? CategoryItem)?.let{
             return name == other.name
         }?:false
     }
 
-    override fun areContentsTheSame(other: com.valkotova.presenter.views.lists.Item): Boolean {
+    override fun areContentsTheSame(other: Item): Boolean {
         return false
     }
 }

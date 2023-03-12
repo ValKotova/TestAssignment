@@ -42,6 +42,6 @@ sealed class ProfileStates {
     object Empty : ProfileStates()
     object NavigateToSignIn : ProfileStates()
     object NavigateBack : ProfileStates()
-    data class ShowError(val error: com.valkotova.presenter.ext.UIError) : ProfileStates()
+    data class ShowError(val error: UIError) : ProfileStates()
     object ChangeAvatar : ProfileStates()
 }

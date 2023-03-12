@@ -87,5 +87,5 @@ class LogInViewModel @Inject constructor(
 sealed class LogInStates {
     object Empty : LogInStates()
     object NavigateToHome : LogInStates()
-    data class ShowError(val error: com.valkotova.presenter.ext.UIError) : LogInStates()
+    data class ShowError(val error: UIError) : LogInStates()
 }

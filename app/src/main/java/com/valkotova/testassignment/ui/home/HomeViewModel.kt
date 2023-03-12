@@ -64,7 +64,7 @@ class HomeViewModel @Inject constructor(
             } catch(t: Throwable){
                 _state.postValue(
                     HomeStates.ShowError(
-                        com.valkotova.presenter.ext.UIError(
+                        UIError(
                             errorString = t.message ?: ""
                         )
                     ))
@@ -113,5 +113,5 @@ sealed class HomeStates {
     object Empty : HomeStates()
     object NavigateBack : HomeStates()
     data class NavigateToProduct(val item : FlashSale) : HomeStates()
-    data class ShowError(val error: com.valkotova.presenter.ext.UIError) : HomeStates()
+    data class ShowError(val error: UIError) : HomeStates()
 }

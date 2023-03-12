@@ -44,7 +44,7 @@ class LogInFragment: Fragment() {
                 LogInStates.Empty -> {
                 }
                 LogInStates.NavigateToHome -> {
-                    findNavController().navigate(com.valkotova.testassignment.ui.login.LogInFragmentDirections.actionLoginToHome())
+                    findNavController().navigate(LogInFragmentDirections.actionLoginToHome())
                 }
             }
             viewModel.emptyState()

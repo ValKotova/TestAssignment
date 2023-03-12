@@ -26,8 +26,6 @@ class ProductFragment: Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel: ProductViewModel by viewModels { viewModelFactory }
 
-    // This property is only valid between onCreateView and
-// onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(

@@ -118,5 +118,5 @@ sealed class SignInState{
     object Empty : SignInState()
     object NavigateToHome : SignInState()
     object NavigateToLogIn : SignInState()
-    data class ShowError(val error: com.valkotova.presenter.ext.UIError) : SignInState()
+    data class ShowError(val error: UIError) : SignInState()
 }

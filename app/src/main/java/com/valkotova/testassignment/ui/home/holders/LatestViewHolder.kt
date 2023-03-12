@@ -6,7 +6,7 @@ import com.valkotova.testassignment.ui.home.items.LatestItem
 import com.valkotova.presenter.views.lists.BaseViewHolder
 import java.util.*
 
-class LatestViewHolder(private val binding: HolderLatestBinding) : com.valkotova.presenter.views.lists.BaseViewHolder<LatestItem>(binding.root)  {
+class LatestViewHolder(private val binding: HolderLatestBinding) : BaseViewHolder<LatestItem>(binding.root)  {
 
     override fun bind(item : LatestItem){
         binding.ivBackground.loadGlide(item.value.imageUrl)
