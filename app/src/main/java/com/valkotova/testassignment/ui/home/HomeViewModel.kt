@@ -1,18 +1,21 @@
 package com.valkotova.testassignment.ui.home
 
-import androidx.lifecycle.*
-import com.valkotova.testassignment.R
-import com.valkotova.testassignment.model.FlashSale
-import com.valkotova.testassignment.model.FlashSaleList
-import com.valkotova.testassignment.model.LatestList
-import com.valkotova.testassignment.model.repository.ProductsRepo
-import com.valkotova.testassignment.ui.ProductFragment.ProductStates
-import com.valkotova.testassignment.ui.ext.UIError
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.valkotova.model.FlashSale
+import com.valkotova.model.FlashSaleList
+import com.valkotova.model.LatestList
+import com.valkotova.model.ProductsRepo
+import com.valkotova.presenter.R
+import com.valkotova.presenter.ext.UIError
 import com.valkotova.testassignment.ui.home.items.CategoryItem
 import com.valkotova.testassignment.ui.home.items.FlashSaleItem
 import com.valkotova.testassignment.ui.home.items.LatestItem
-import com.valkotova.testassignment.ui.login.LogInStates
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
@@ -60,9 +63,11 @@ class HomeViewModel @Inject constructor(
                 ))
             } catch(t: Throwable){
                 _state.postValue(
-                    HomeStates.ShowError(UIError(
-                    errorString = t.message?:""
-                )))
+                    HomeStates.ShowError(
+                        com.valkotova.presenter.ext.UIError(
+                            errorString = t.message ?: ""
+                        )
+                    ))
             }
         }
     }
@@ -108,5 +113,5 @@ sealed class HomeStates {
     object Empty : HomeStates()
     object NavigateBack : HomeStates()
     data class NavigateToProduct(val item : FlashSale) : HomeStates()
-    data class ShowError(val error: UIError) : HomeStates()
+    data class ShowError(val error: com.valkotova.presenter.ext.UIError) : HomeStates()
 }

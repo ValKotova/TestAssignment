@@ -1,14 +1,10 @@
 package com.valkotova.testassignment.ui.signIn
 
 import android.util.Patterns
-import androidx.annotation.IdRes
-import androidx.annotation.StringRes
 import androidx.lifecycle.*
-import com.valkotova.testassignment.R
-import com.valkotova.testassignment.database.UserData
-import com.valkotova.testassignment.model.repository.ProductsRepo
-import com.valkotova.testassignment.model.repository.UsersRepo
-import com.valkotova.testassignment.ui.ext.UIError
+import com.valkotova.presenter.R
+import com.valkotova.model.UsersRepo
+import com.valkotova.presenter.ext.UIError
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -69,10 +65,10 @@ class SignInViewModel @Inject constructor(
                         _emailIsInvalid.postValue(true)
                     }
                     else {
-                        addUser(UserData(
+                        addUser(
                             email = email,
                             firstName = firstName,
-                            lastName = _lastName.value?:""))
+                            lastName = _lastName.value?:"")
                     }
                 } ?: run {
                     _state.postValue(SignInState.ShowError(UIError(R.string.error_empty_email)))
@@ -84,16 +80,29 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    private suspend fun addUser(userData: UserData) {
+    private suspend fun addUser(firstName: String, lastName : String, email : String) {
         try{
-            usersRepo.addUser(userData)
+            usersRepo.addUser(firstName, lastName, email)
             _state.postValue(SignInState.NavigateToHome)
         } catch (t: UsersRepo.UserIsAlreadyExists){
-            _state.postValue(SignInState.ShowError(UIError(errorId = R.string.error_user_already_exists, args = listOf(userData.firstName))))
+            _state.postValue(
+                SignInState.ShowError(
+                    UIError(
+                        errorId = R.string.error_user_already_exists,
+                        args = listOf(firstName)
+                    )
+                )
+            )
         }
         catch(t : Throwable){
             t.message?.let{
-                _state.postValue(SignInState.ShowError(UIError(errorString = it)))
+                _state.postValue(
+                    SignInState.ShowError(
+                        UIError(
+                            errorString = it
+                        )
+                    )
+                )
             } ?: run {
                 _state.postValue(SignInState.ShowError(UIError(R.string.error_unknown)))
             }
@@ -109,5 +118,5 @@ sealed class SignInState{
     object Empty : SignInState()
     object NavigateToHome : SignInState()
     object NavigateToLogIn : SignInState()
-    data class ShowError(val error: UIError) : SignInState()
+    data class ShowError(val error: com.valkotova.presenter.ext.UIError) : SignInState()
 }

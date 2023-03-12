@@ -1,13 +1,12 @@
 package com.valkotova.testassignment.ui.home.holders
 
-import androidx.recyclerview.widget.RecyclerView
+import com.valkotova.presenter.di.loadGlide
 import com.valkotova.testassignment.databinding.HolderLatestBinding
-import com.valkotova.testassignment.di.loadGlide
-import com.valkotova.testassignment.ui.views.lists.BaseViewHolder
 import com.valkotova.testassignment.ui.home.items.LatestItem
+import com.valkotova.presenter.views.lists.BaseViewHolder
 import java.util.*
 
-class LatestViewHolder(private val binding: HolderLatestBinding) : BaseViewHolder<LatestItem>(binding.root)  {
+class LatestViewHolder(private val binding: HolderLatestBinding) : com.valkotova.presenter.views.lists.BaseViewHolder<LatestItem>(binding.root)  {
 
     override fun bind(item : LatestItem){
         binding.ivBackground.loadGlide(item.value.imageUrl)

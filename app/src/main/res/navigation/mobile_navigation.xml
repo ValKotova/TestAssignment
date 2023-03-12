@@ -90,11 +90,11 @@
         tools:layout="@layout/fragment_not_implemented" />
     <fragment
         android:id="@+id/navigation_product"
-        android:name="com.valkotova.testassignment.ui.ProductFragment.ProductFragment"
+        android:name="com.valkotova.testassignment.ui.product.ProductFragment"
         android:label="ProductFragment" >
         <argument
             android:name="product"
-            app:argType="com.valkotova.testassignment.model.Product" />
+            app:argType="com.valkotova.model.Product" />
     </fragment>
 
 </navigation>

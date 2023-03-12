@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.valkotova.testassignment.model.repository.ProductsRepo
-import com.valkotova.testassignment.ui.ext.UIError
-import com.valkotova.testassignment.ui.login.LogInStates
+import com.valkotova.presenter.ext.UIError
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -44,6 +42,6 @@ sealed class ProfileStates {
     object Empty : ProfileStates()
     object NavigateToSignIn : ProfileStates()
     object NavigateBack : ProfileStates()
-    data class ShowError(val error: UIError) : ProfileStates()
+    data class ShowError(val error: com.valkotova.presenter.ext.UIError) : ProfileStates()
     object ChangeAvatar : ProfileStates()
 }

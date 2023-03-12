@@ -1,6 +1,5 @@
 package com.valkotova.testassignment.ui.home
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,24 +13,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Orientation
-import com.valkotova.testassignment.MainActivity
-import com.valkotova.testassignment.R
 import com.valkotova.testassignment.appComponent
 import com.valkotova.testassignment.databinding.FragmentHomeBinding
 import com.valkotova.testassignment.databinding.HolderCategoryBinding
 import com.valkotova.testassignment.databinding.HolderFlashSaleBinding
 import com.valkotova.testassignment.databinding.HolderLatestBinding
+import com.valkotova.model.Product
+import com.valkotova.presenter.ext.showError
+import com.valkotova.presenter.ext.textChanges
 import com.valkotova.testassignment.di.viewModel.ViewModelFactory
-import com.valkotova.testassignment.model.Product
-import com.valkotova.testassignment.ui.ext.showError
-import com.valkotova.testassignment.ui.ext.textChanges
-import com.valkotova.testassignment.ui.views.lists.BaseViewHolder
-import com.valkotova.testassignment.ui.views.lists.CircularAdapter
 import com.valkotova.testassignment.ui.home.holders.CategoryViewHolder
 import com.valkotova.testassignment.ui.home.holders.FlashSaleViewHolder
 import com.valkotova.testassignment.ui.home.holders.LatestViewHolder
@@ -39,7 +32,6 @@ import com.valkotova.testassignment.ui.home.items.CategoryItem
 import com.valkotova.testassignment.ui.home.items.FlashSaleItem
 import com.valkotova.testassignment.ui.home.items.LatestItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.NonDisposableHandle.parent
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
@@ -58,15 +50,15 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    var popup : ListPopupWindow? = null
-    var readyForPopup : Boolean = false
+    private var popup : ListPopupWindow? = null
+    private var readyForPopup : Boolean = false
 
-    private val adapterLatest = object : CircularAdapter<LatestItem, LatestViewHolder>() {
+    private val adapterLatest = object : com.valkotova.presenter.views.lists.CircularAdapter<LatestItem, LatestViewHolder>() {
 
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-        ): BaseViewHolder<LatestItem> {
+        ): com.valkotova.presenter.views.lists.BaseViewHolder<LatestItem> {
                 return LatestViewHolder(HolderLatestBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -74,11 +66,11 @@ class HomeFragment : Fragment() {
                 ))
         }
     }
-    private val adapterFlashSale = object : CircularAdapter <FlashSaleItem, FlashSaleViewHolder>(){
+    private val adapterFlashSale = object : com.valkotova.presenter.views.lists.CircularAdapter<FlashSaleItem, FlashSaleViewHolder>(){
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-        ): BaseViewHolder<FlashSaleItem> {
+        ): com.valkotova.presenter.views.lists.BaseViewHolder<FlashSaleItem> {
             return FlashSaleViewHolder(HolderFlashSaleBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -87,7 +79,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private val adapterCategory = object : CircularAdapter <CategoryItem, CategoryViewHolder>(){
+    private val adapterCategory = object : com.valkotova.presenter.views.lists.CircularAdapter<CategoryItem, CategoryViewHolder>(){
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
@@ -206,7 +198,7 @@ class HomeFragment : Fragment() {
             viewModel.suggestions.observe(viewLifecycleOwner){
                 Log.d("Suggestions", it.toString())
                 if(it.isNotEmpty()) {
-                    popup?.setAdapter(ArrayAdapter<String>(
+                    popup?.setAdapter(ArrayAdapter(
                         requireContext(),
                         android.R.layout.simple_dropdown_item_1line,
                         it

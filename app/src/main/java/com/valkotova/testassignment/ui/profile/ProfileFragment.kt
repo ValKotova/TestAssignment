@@ -11,12 +11,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.valkotova.testassignment.R
+import com.valkotova.presenter.R
 import com.valkotova.testassignment.appComponent
 import com.valkotova.testassignment.databinding.FragmentProfileBinding
-import com.valkotova.testassignment.di.loadGlideCircled
+import com.valkotova.presenter.di.loadGlideCircled
+import com.valkotova.presenter.ext.showError
 import com.valkotova.testassignment.di.viewModel.ViewModelFactory
-import com.valkotova.testassignment.ui.ext.showError
 import javax.inject.Inject
 
 class ProfileFragment : Fragment() {

@@ -1,13 +1,12 @@
 package com.valkotova.testassignment.di
 
+import com.valkotova.data.RepositoryModule
+import com.valkotova.database.DaoModule
+import com.valkotova.network.NetworkModule
 import com.valkotova.testassignment.App
-import com.valkotova.testassignment.data.RepositoryModule
-import com.valkotova.testassignment.database.DaoModule
-import com.valkotova.testassignment.di.viewModel.ViewModelModule
-import com.valkotova.testassignment.network.NetworkModule
-import com.valkotova.testassignment.ui.ProductFragment.ProductFragment
 import com.valkotova.testassignment.ui.home.HomeFragment
 import com.valkotova.testassignment.ui.login.LogInFragment
+import com.valkotova.testassignment.ui.product.ProductFragment
 import com.valkotova.testassignment.ui.profile.ProfileFragment
 import com.valkotova.testassignment.ui.signIn.SignInFragment
 import dagger.BindsInstance

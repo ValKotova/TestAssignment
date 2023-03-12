@@ -1,36 +1,20 @@
 package com.valkotova.testassignment.ui.signIn
 
-import android.content.res.Resources.Theme
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
-import com.valkotova.testassignment.R
+import com.valkotova.presenter.ext.showError
+import com.valkotova.presenter.ext.updateState
 import com.valkotova.testassignment.appComponent
-import com.valkotova.testassignment.databinding.FragmentHomeBinding
 import com.valkotova.testassignment.databinding.FragmentSignInBinding
 import com.valkotova.testassignment.di.viewModel.ViewModelFactory
-import com.valkotova.testassignment.ui.ext.showError
-import com.valkotova.testassignment.ui.ext.textChanges
-import com.valkotova.testassignment.ui.ext.updateState
-import com.valkotova.testassignment.ui.home.HomeViewModel
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class SignInFragment: Fragment() {

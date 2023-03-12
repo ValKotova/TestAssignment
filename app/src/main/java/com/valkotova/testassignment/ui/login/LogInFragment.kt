@@ -1,28 +1,21 @@
 package com.valkotova.testassignment.ui.login
 
 import android.os.Bundle
-import android.text.Layout.Directions
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.valkotova.testassignment.R
+import com.valkotova.presenter.R
+import com.valkotova.presenter.ext.showError
+import com.valkotova.presenter.ext.updateState
 import com.valkotova.testassignment.appComponent
 import com.valkotova.testassignment.databinding.FragmentLogInBinding
-import com.valkotova.testassignment.databinding.FragmentProfileBinding
 import com.valkotova.testassignment.di.viewModel.ViewModelFactory
-import com.valkotova.testassignment.ui.ext.showError
-import com.valkotova.testassignment.ui.ext.updateState
-import com.valkotova.testassignment.ui.profile.ProfileViewModel
-import com.valkotova.testassignment.ui.signIn.SignInState
 import javax.inject.Inject
 
 class LogInFragment: Fragment() {
@@ -30,6 +23,7 @@ class LogInFragment: Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel: LogInViewModel by viewModels { viewModelFactory }
 
     private val binding get() = _binding!!
@@ -39,7 +33,8 @@ class LogInFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        requireContext().appComponent.inject(this)
+
+        requireContext().applicationContext.appComponent.inject(this)
         _binding = FragmentLogInBinding.inflate(inflater, container, false)
         viewModel.state.observe(viewLifecycleOwner){ state ->
             when(state){
@@ -49,7 +44,7 @@ class LogInFragment: Fragment() {
                 LogInStates.Empty -> {
                 }
                 LogInStates.NavigateToHome -> {
-                    findNavController().navigate(LogInFragmentDirections.actionLoginToHome())
+                    findNavController().navigate(com.valkotova.testassignment.ui.login.LogInFragmentDirections.actionLoginToHome())
                 }
             }
             viewModel.emptyState()

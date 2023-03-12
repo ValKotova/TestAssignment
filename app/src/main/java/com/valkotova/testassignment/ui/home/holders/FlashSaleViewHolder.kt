@@ -1,12 +1,10 @@
 package com.valkotova.testassignment.ui.home.holders
 
-import androidx.recyclerview.widget.RecyclerView
-import com.valkotova.testassignment.R
-import com.valkotova.testassignment.databinding.HolderFlashSaleBinding
-import com.valkotova.testassignment.di.loadGlide
-import com.valkotova.testassignment.ui.views.lists.BaseViewHolder
-import com.valkotova.testassignment.ui.views.lists.Item
+import com.valkotova.presenter.R
+import com.valkotova.presenter.di.loadGlide
 import com.valkotova.testassignment.ui.home.items.FlashSaleItem
+import com.valkotova.presenter.views.lists.BaseViewHolder
+import com.valkotova.testassignment.databinding.HolderFlashSaleBinding
 import java.util.*
 
 class FlashSaleViewHolder(private val binding: HolderFlashSaleBinding) : BaseViewHolder<FlashSaleItem>(binding.root)  {

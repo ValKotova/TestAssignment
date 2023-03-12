@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.valkotova.testassignment.R
-import com.valkotova.testassignment.model.repository.UsersRepo
-import com.valkotova.testassignment.ui.ext.UIError
+import com.valkotova.presenter.R
+import com.valkotova.model.UsersRepo
+import com.valkotova.presenter.ext.UIError
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -64,7 +64,13 @@ class LogInViewModel @Inject constructor(
                     )
                 } catch (t : Throwable){
                     t.message?.let{
-                        _state.postValue(LogInStates.ShowError(UIError(errorString = it)))
+                        _state.postValue(
+                            LogInStates.ShowError(
+                                UIError(
+                                    errorString = it
+                                )
+                            )
+                        )
                     } ?: run {
                         _state.postValue(LogInStates.ShowError(UIError(R.string.error_unknown)))
                     }
@@ -81,5 +87,5 @@ class LogInViewModel @Inject constructor(
 sealed class LogInStates {
     object Empty : LogInStates()
     object NavigateToHome : LogInStates()
-    data class ShowError(val error: UIError) : LogInStates()
+    data class ShowError(val error: com.valkotova.presenter.ext.UIError) : LogInStates()
 }

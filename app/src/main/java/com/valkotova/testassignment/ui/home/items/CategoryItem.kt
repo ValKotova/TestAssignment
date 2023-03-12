@@ -1,21 +1,20 @@
 package com.valkotova.testassignment.ui.home.items
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
-import com.valkotova.testassignment.ui.views.lists.Item
+import com.valkotova.presenter.views.lists.Item
 
 class CategoryItem(
     val name : String,
     @DrawableRes val drawable : Int
-) : Item {
+) : com.valkotova.presenter.views.lists.Item {
 
-    override fun areItemsTheSame(other: Item): Boolean {
+    override fun areItemsTheSame(other: com.valkotova.presenter.views.lists.Item): Boolean {
         return (other as? CategoryItem)?.let{
             return name == other.name
         }?:false
     }
 
-    override fun areContentsTheSame(other: Item): Boolean {
+    override fun areContentsTheSame(other: com.valkotova.presenter.views.lists.Item): Boolean {
         return false
     }
 }
